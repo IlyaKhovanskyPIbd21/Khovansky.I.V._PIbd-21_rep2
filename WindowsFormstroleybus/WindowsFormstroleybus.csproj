@@ -48,6 +48,12 @@
   <ItemGroup>
     <Compile Include="Bus.cs" />
     <Compile Include="Direction.cs" />
+    <Compile Include="FormBusConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBusConfig.Designer.cs">
+      <DependentUpon>FormBusConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormParking.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -11,6 +11,19 @@ namespace WindowsFormstroleybus
         /// Дополнительный цвет
         /// </summary>
         public Color DopColor { private set; get; }
+        /// <summary>
+        /// Признак наличия переднего спойлера
+        /// </summary>
+
+        /// <summary>
+        /// Количество полос
+        /// </summary>
+
+        /// <summary>
+        /// Количество полос
+        /// </summary>
+        /// 
+
 
         public bool Diski { private set; get; }
 
@@ -45,10 +58,15 @@ namespace WindowsFormstroleybus
 
 
         }
+        public void SetDopColor(Color color)
+        {
+            DopColor = color;
+
+        }
         public override void DrawBus(Graphics g)
         {
             Pen pen = new Pen(Color.Black);
-            Brush brush = new SolidBrush(Color.Black);
+            Brush brush = new SolidBrush(DopColor);
             Brush dopBrush = new SolidBrush(DopColor);
             Brush Mainbrush = new SolidBrush(MainColor);
             Brush doorBrush = new SolidBrush(Color.LightGray);

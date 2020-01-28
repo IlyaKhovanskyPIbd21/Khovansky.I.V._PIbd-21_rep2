@@ -12,6 +12,7 @@ namespace WindowsFormstroleybus
         /// </summary>
         MultiLevelParking parking;
 
+        FormBusConfig formBusConfig;
         /// <summary>
         /// Количество уровней-парковок
         /// </summary>
@@ -53,23 +54,26 @@ namespace WindowsFormstroleybus
         /// <param name="e"></param>
         private void buttonSetBus_Click(object sender, EventArgs e)
         {
-            if (listBoxLevels.SelectedIndex > -1)
+            formBusConfig = new FormBusConfig();
+            formBusConfig.AddEvent(AddBus);
+            formBusConfig.Show();
+
+
+        }
+        private void AddBus(ITrolleybus bus)
+        {
+            if (bus != null && listBoxLevels.SelectedIndex > -1)
             {
-                ColorDialog dialog = new ColorDialog();
-                if (dialog.ShowDialog() == DialogResult.OK)
+                int place = parking[listBoxLevels.SelectedIndex] + bus;
+                if (place > -1)
                 {
-                    Random rnd = new Random();
-                    var bus = new Bus(100, 1000, dialog.Color, rnd.Next(1, 4));
-                    int place = parking[listBoxLevels.SelectedIndex] + bus;
-                    if (place == -1)
-                    {
-                        MessageBox.Show("Нет свободных мест", "Ошибка",
-                       MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
                     Draw();
                 }
+                else
+                {
+                    MessageBox.Show("Автобус не удалось поставить");
+                }
             }
-
         }
 
         /// <summary>
@@ -77,30 +81,7 @@ namespace WindowsFormstroleybus
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void buttonSetTrolleybus_Click(object sender, EventArgs e)
-        {
-            if (listBoxLevels.SelectedIndex > -1)
-            {
-                ColorDialog dialog = new ColorDialog();
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    ColorDialog dialogDop = new ColorDialog();
-                    if (dialogDop.ShowDialog() == DialogResult.OK)
-                    {
-                        Random rnd = new Random();
-                        var bus = new Trolleybus(100, 1000, dialog.Color, dialogDop.Color, true, true, true, rnd.Next(1, 4), true); ;
-                        int place = parking[listBoxLevels.SelectedIndex] + bus;
-                        if (place == -1)
-                        {
-                            MessageBox.Show("Нет свободных мест", "Ошибка",
-                           MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        Draw();
-                    }
-                }
-            }
 
-        }
         /// <summary>
         /// Обработка нажатия кнопки "Забрать"
         /// </summary>
@@ -110,25 +91,25 @@ namespace WindowsFormstroleybus
         {
             if (listBoxLevels.SelectedIndex > -1)
             {
-                if (maskedTextBoxTakeBus.Text != "")
+                if (maskedTextBoxTakeBusOrTrolleybus.Text != "")
                 {
                     var bus = parking[listBoxLevels.SelectedIndex] -
-                   Convert.ToInt32(maskedTextBoxTakeBus.Text);
+                   Convert.ToInt32(maskedTextBoxTakeBusOrTrolleybus.Text);
                     if (bus != null)
                     {
-                        Bitmap bmp = new Bitmap(TakeBusOrTrolleybus.Width,
-                       TakeBusOrTrolleybus.Height);
+                        Bitmap bmp = new Bitmap(pictureBoxTakeBus.Width,
+                       pictureBoxTakeBus.Height);
                         Graphics gr = Graphics.FromImage(bmp);
-                        bus.SetPosition(5, 5, TakeBusOrTrolleybus.Width,
-                       TakeBusOrTrolleybus.Height);
+                        bus.SetPosition(-50, 100, pictureBoxTakeBus.Width,
+                       pictureBoxTakeBus.Height);
                         bus.DrawBus(gr);
-                        TakeBusOrTrolleybus.Image = bmp;
+                        pictureBoxTakeBus.Image = bmp;
                     }
                     else
                     {
-                        Bitmap bmp = new Bitmap(TakeBusOrTrolleybus.Width,
-                       TakeBusOrTrolleybus.Height);
-                        TakeBusOrTrolleybus.Image = bmp;
+                        Bitmap bmp = new Bitmap(pictureBoxTakeBus.Width,
+                        pictureBoxTakeBus.Height);
+                        pictureBoxTakeBus.Image = bmp;
                     }
                     Draw();
                 }

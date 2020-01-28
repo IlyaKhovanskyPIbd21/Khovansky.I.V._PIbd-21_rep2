@@ -22,5 +22,7 @@ namespace WindowsFormstroleybus
         /// </summary>
         /// <param name="g"></param>
         void DrawBus(Graphics g);
+        void SetMainColor(Color color);
+
     }
 }

@@ -6,6 +6,8 @@ using System.Windows.Forms;
 
 namespace WindowsFormstroleybus
 {
+    public delegate void busDelegate(ITrolleybus bus);
+
     static class Program
     {
         /// <summary>
