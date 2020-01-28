@@ -16,7 +16,7 @@ namespace WindowsFormstroleybus
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormTrolleybus());
+            Application.Run(new FormParking());
         }
     }
 }
