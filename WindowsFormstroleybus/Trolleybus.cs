@@ -5,11 +5,8 @@ namespace WindowsFormstroleybus
     /// <summary>
     /// Класс отрисовки гоночного автомобиля
     /// </summary>
-    public class Trolleybus : Bus
+    public class Trolleybus : Bus, IComparable<Trolleybus>, IEquatable<Trolleybus>
     {
-        /// <summary>
-        /// Дополнительный цвет
-        /// </summary>
         public Color DopColor { private set; get; }
         /// <summary>
         /// Признак наличия переднего спойлера
@@ -119,6 +116,80 @@ namespace WindowsFormstroleybus
                 g.DrawLine(pen, _startPosX + 98, _startPosY - 32, _startPosX + 116, _startPosY - 22);
                 g.DrawLine(pen, _startPosX + 105, _startPosY - 32, _startPosX + 123, _startPosY - 22);
             }
+        }
+        public int CompareTo(Trolleybus other)
+        {
+            var res = (this is Bus).CompareTo(other is Bus);
+            if (res != 0)
+            {
+                return res;
+            }
+            if (DopColor != other.DopColor)
+            {
+                DopColor.Name.CompareTo(other.DopColor.Name);
+            }
+            if (Diski != other.Diski)
+            {
+                return Diski.CompareTo(other.Diski);
+            }
+            if (DopStupeny != other.DopStupeny)
+            {
+                return DopStupeny.CompareTo(other.DopStupeny);
+            }
+            if (Roga != other.Roga)
+            {
+                return Roga.CompareTo(other.Roga);
+            }
+            return 0;
+        }
+        public bool Equals(Trolleybus other)
+        {
+            var res = (this as Bus).Equals(other as Bus);
+            if (!res)
+            {
+                return res;
+            }
+            if (GetType().Name != other.GetType().Name)
+            {
+                return false;
+            }
+            if (DopColor != other.DopColor)
+            {
+                return false;
+            }
+            if (Diski != other.Diski)
+            {
+                return false;
+            }
+
+            if (DopStupeny != other.DopStupeny)
+            {
+                return false;
+            }
+            if (Roga != other.Roga)
+            {
+                return false;
+            }
+            return true;
+        }
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            if (!(obj is Trolleybus busObj))
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(busObj);
+            }
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

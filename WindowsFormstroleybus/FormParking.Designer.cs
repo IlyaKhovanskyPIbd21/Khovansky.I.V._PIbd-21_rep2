@@ -32,7 +32,7 @@
             this.buttonCreateTrolleybus = new System.Windows.Forms.Button();
             this.groupBoxTakeBusOrTrolleybus = new System.Windows.Forms.GroupBox();
             this.pictureBoxTakeBus = new System.Windows.Forms.PictureBox();
-            this.TakeBusOrTrolleybus = new System.Windows.Forms.Button();
+            this.buttonTakeBusOrTrolleybus = new System.Windows.Forms.Button();
             this.maskedTextBoxTakeBusOrTrolleybus = new System.Windows.Forms.MaskedTextBox();
             this.labelTakeBusOrTrolleybus = new System.Windows.Forms.Label();
             this.listBoxLevels = new System.Windows.Forms.ListBox();
@@ -42,6 +42,7 @@
             this.загрузитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.buttonSort = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxParking)).BeginInit();
             this.groupBoxTakeBusOrTrolleybus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTakeBus)).BeginInit();
@@ -60,7 +61,7 @@
             // 
             this.buttonCreateTrolleybus.Location = new System.Drawing.Point(1277, 164);
             this.buttonCreateTrolleybus.Name = "buttonCreateTrolleybus";
-            this.buttonCreateTrolleybus.Size = new System.Drawing.Size(242, 180);
+            this.buttonCreateTrolleybus.Size = new System.Drawing.Size(242, 74);
             this.buttonCreateTrolleybus.TabIndex = 2;
             this.buttonCreateTrolleybus.Text = "Заказать Транспорт";
             this.buttonCreateTrolleybus.UseVisualStyleBackColor = true;
@@ -69,7 +70,7 @@
             // groupBoxTakeBusOrTrolleybus
             // 
             this.groupBoxTakeBusOrTrolleybus.Controls.Add(this.pictureBoxTakeBus);
-            this.groupBoxTakeBusOrTrolleybus.Controls.Add(this.TakeBusOrTrolleybus);
+            this.groupBoxTakeBusOrTrolleybus.Controls.Add(this.buttonTakeBusOrTrolleybus);
             this.groupBoxTakeBusOrTrolleybus.Controls.Add(this.maskedTextBoxTakeBusOrTrolleybus);
             this.groupBoxTakeBusOrTrolleybus.Controls.Add(this.labelTakeBusOrTrolleybus);
             this.groupBoxTakeBusOrTrolleybus.Location = new System.Drawing.Point(1257, 350);
@@ -86,15 +87,15 @@
             this.pictureBoxTakeBus.TabIndex = 3;
             this.pictureBoxTakeBus.TabStop = false;
             // 
-            // TakeBusOrTrolleybus
+            // buttonTakeBusOrTrolleybus
             // 
-            this.TakeBusOrTrolleybus.Location = new System.Drawing.Point(59, 58);
-            this.TakeBusOrTrolleybus.Name = "TakeBusOrTrolleybus";
-            this.TakeBusOrTrolleybus.Size = new System.Drawing.Size(171, 41);
-            this.TakeBusOrTrolleybus.TabIndex = 2;
-            this.TakeBusOrTrolleybus.Text = "Забрать";
-            this.TakeBusOrTrolleybus.UseVisualStyleBackColor = true;
-            this.TakeBusOrTrolleybus.Click += new System.EventHandler(this.buttonTakeBus_Click);
+            this.buttonTakeBusOrTrolleybus.Location = new System.Drawing.Point(59, 58);
+            this.buttonTakeBusOrTrolleybus.Name = "buttonTakeBusOrTrolleybus";
+            this.buttonTakeBusOrTrolleybus.Size = new System.Drawing.Size(171, 41);
+            this.buttonTakeBusOrTrolleybus.TabIndex = 2;
+            this.buttonTakeBusOrTrolleybus.Text = "Забрать";
+            this.buttonTakeBusOrTrolleybus.UseVisualStyleBackColor = true;
+            this.buttonTakeBusOrTrolleybus.Click += new System.EventHandler(this.buttonTakeBus_Click);
             // 
             // maskedTextBoxTakeBusOrTrolleybus
             // 
@@ -129,7 +130,7 @@
             this.menuStripSaveOrLoadFile.Name = "menuStripSaveOrLoadFile";
             this.menuStripSaveOrLoadFile.Size = new System.Drawing.Size(1543, 24);
             this.menuStripSaveOrLoadFile.TabIndex = 5;
-            this.menuStripSaveOrLoadFile.Text = "menuStrip1";
+            this.menuStripSaveOrLoadFile.Text = "menuStripSaveOrLoadFile";
             // 
             // файлToolStripMenuItem
             // 
@@ -163,11 +164,22 @@
             // 
             this.saveFileDialog.Filter = "txt file | *.txt";
             // 
+            // buttonSort
+            // 
+            this.buttonSort.Location = new System.Drawing.Point(1277, 256);
+            this.buttonSort.Name = "buttonSort";
+            this.buttonSort.Size = new System.Drawing.Size(242, 66);
+            this.buttonSort.TabIndex = 6;
+            this.buttonSort.Text = "Сортировать";
+            this.buttonSort.UseVisualStyleBackColor = true;
+            this.buttonSort.Click += new System.EventHandler(this.buttonSort_Click);
+            // 
             // FormParking
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1543, 640);
+            this.Controls.Add(this.buttonSort);
             this.Controls.Add(this.listBoxLevels);
             this.Controls.Add(this.groupBoxTakeBusOrTrolleybus);
             this.Controls.Add(this.buttonCreateTrolleybus);
@@ -193,7 +205,7 @@
         private System.Windows.Forms.Button buttonCreateTrolleybus;
         private System.Windows.Forms.GroupBox groupBoxTakeBusOrTrolleybus;
         private System.Windows.Forms.PictureBox pictureBoxTakeBus;
-        private System.Windows.Forms.Button TakeBusOrTrolleybus;
+        private System.Windows.Forms.Button buttonTakeBusOrTrolleybus;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxTakeBusOrTrolleybus;
         private System.Windows.Forms.Label labelTakeBusOrTrolleybus;
         private System.Windows.Forms.ListBox listBoxLevels;
@@ -203,5 +215,6 @@
         private System.Windows.Forms.ToolStripMenuItem загрузитьToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.Button buttonSort;
     }
 }

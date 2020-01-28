@@ -2,7 +2,8 @@
 using System.Drawing;
 namespace WindowsFormstroleybus
 {
-    public class Bus : Vehicle
+    public class Bus : Vehicle, IComparable<Bus>, IEquatable<Bus>
+
     {
         /// <summary>
         /// Ширина отрисовки автомобиля
@@ -101,6 +102,77 @@ namespace WindowsFormstroleybus
         public override string ToString()
         {
             return MaxSpeed + ";" + Weight + ";" + MainColor.Name + ";" + Doors;
+        }
+        public int CompareTo(Bus other)
+        {
+            if (other == null)
+            {
+                return 1;
+            }
+            if (MaxSpeed != other.MaxSpeed)
+            {
+                return MaxSpeed.CompareTo(other.MaxSpeed);
+            }
+            if (Weight != other.Weight)
+            {
+                return Weight.CompareTo(other.Weight);
+            }
+            if (MainColor != other.MainColor)
+            {
+                MainColor.Name.CompareTo(other.MainColor.Name);
+            }
+            if (Doors != other.Doors)
+            {
+                return Doors.CompareTo(other.Doors);
+            }
+            return 0;
+        }
+        public bool Equals(Bus other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+            if (GetType().Name != other.GetType().Name)
+            {
+                return false;
+            }
+            if (MaxSpeed != other.MaxSpeed)
+            {
+                return false;
+            }
+            if (Weight != other.Weight)
+            {
+                return false;
+            }
+            if (MainColor != other.MainColor)
+            {
+                return false;
+            }
+            if (Doors != other.Doors)
+            {
+                return false;
+            }
+            return true;
+        }
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            if (!(obj is Bus busObj))
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(busObj);
+            }
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
 
     }

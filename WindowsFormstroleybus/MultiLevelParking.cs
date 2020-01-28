@@ -65,85 +65,122 @@ namespace WindowsFormstroleybus
                 return null;
             }
         }
-        public bool SaveData(string filename)
+        public void SaveData(string filename)
         {
             if (File.Exists(filename))
             {
                 File.Delete(filename);
             }
-            using (StreamWriter fs = new StreamWriter(File.OpenWrite(filename)))
+            using (FileStream fs = new FileStream(filename, FileMode.Create))
             {
+                //Записываем количество уровней
+                WriteToFile("CountLeveles:" + parkingStages.Count +
+               Environment.NewLine, fs);
 
-                fs.WriteLine($"CountLevels:{parkingStages.Count}");
                 foreach (var level in parkingStages)
                 {
-                    fs.WriteLine("Level");
-                    for (int i = 0; i < countPlaces; i++)
+
+                    //Начинаем уровень
+                    WriteToFile("Level" + Environment.NewLine, fs);
+                    foreach (ITrolleybus bus in level)
                     {
-                        var bus = level[i];
-                        if (bus != null)
+
+
+
+
+                        if (bus?.GetType().Name == "Bus")
                         {
-                            if (bus.GetType().Name == "Bus")
-                            {
-                                fs.WriteLine($"{i}:Bus:" + bus);
-                            }
-                            if (bus.GetType().Name == "Trolleybus")
-                            {
-                                fs.WriteLine($"{i}:Trolleybus:" + bus);
-                            }
+                            WriteToFile(":Bus:" + bus + Environment.NewLine, fs);
                         }
+
+                        if (bus?.GetType().Name == "Trolleybus")
+                        {
+                            WriteToFile(":Trolleybus:" + bus + Environment.NewLine, fs);
+                        }
+
+
                     }
                 }
             }
-            return true;
+
         }
-
-
-
-        public bool LoadData(string filename)
+        private void WriteToFile(string text, FileStream stream)
+        {
+            byte[] info = new UTF8Encoding(true).GetBytes(text);
+            stream.Write(info, 0, info.Length);
+        }
+        public void LoadData(string filename)
         {
             if (!File.Exists(filename))
             {
-                return false;
+                throw new FileNotFoundException();
             }
-            string buff = "";
-            using (StreamReader fs = new StreamReader(File.OpenRead(filename)))
+            string bufferTextFromFile = "";
+            using (FileStream fs = new FileStream(filename, FileMode.Open))
             {
-                buff = fs.ReadLine();
-                if (buff.Split(':')[0] == "CountLevels")
+                byte[] b = new byte[fs.Length];
+                UTF8Encoding temp = new UTF8Encoding(true);
+                while (fs.Read(b, 0, b.Length) > 0)
                 {
-                    int countLevel = Convert.ToInt32(buff.Split(':')[1]);
-                    if (parkingStages != null)
-                        parkingStages.Clear();
-                    parkingStages = new List<Parking<ITrolleybus>>(countLevel);
-                }
-                else
-                    return false;
-                int count = -1;
-                while (!fs.EndOfStream)
-                {
-                    buff = fs.ReadLine();
-                    ITrolleybus bus = null;
-                    if (buff == "Level")
-                    {
-                        count++;
-                        parkingStages.Add(new Parking<ITrolleybus>(countPlaces, PictureWidth, PictureHeight));
-                        continue;
-                    }
-                    if (buff.Split(':')[1] == "Bus")
-                    {
-                        bus = new Bus(buff.Split(':')[2]);
-                        parkingStages[count][Convert.ToInt32(buff.Split(':')[0])] = bus;
-                    }
-                    if (buff.Split(':')[1] == "Trolleybus")
-                    {
-                        bus = new Trolleybus(buff.Split(':')[2]);
-                        parkingStages[count][Convert.ToInt32(buff.Split(':')[0])] = bus;
-                    }
+                    bufferTextFromFile += temp.GetString(b);
                 }
             }
-            return true;
+            bufferTextFromFile = bufferTextFromFile.Replace("\r", "");
+            var strs = bufferTextFromFile.Split('\n');
+            if (strs[0].Contains("CountLeveles"))
+            {
+                //считываем количество уровней
+                int count = Convert.ToInt32(strs[0].Split(':')[1]);
+                if (parkingStages != null)
+                {
+                    parkingStages.Clear();
+                }
+                parkingStages = new List<Parking<ITrolleybus>>(count);
+            }
+            else
+            {
+                //если нет такой записи, то это не те данные
+                throw new Exception("Неверный формат файла");
+
+            }
+            int counter = -1;
+            int counterCar = 0;
+            ITrolleybus bus = null;
+            for (int i = 1; i < strs.Length; ++i)
+            {
+                //идем по считанным записям
+                if (strs[i] == "Level")
+                {
+                    //начинаем новый уровень
+                    counter++;
+                    counterCar = 0;
+                    parkingStages.Add(new Parking<ITrolleybus>(countPlaces, PictureWidth, PictureHeight));
+                    continue;
+                }
+                if (string.IsNullOrEmpty(strs[i]))
+                {
+                    continue;
+                }
+                if (strs[i].Split(':')[1] == "Bus")
+                {
+
+                    bus = new Bus(strs[i].Split(':')[2]);
+                }
+                else if (strs[i].Split(':')[1] == "Trolleybus")
+                {
+
+                    bus = new Trolleybus(strs[i].Split(':')[2]);
+
+                }
+                parkingStages[counter][counterCar++] = bus;
+            }
+
         }
+        public void Sort()
+        {
+            parkingStages.Sort();
+        }
+
     }
 
 }
