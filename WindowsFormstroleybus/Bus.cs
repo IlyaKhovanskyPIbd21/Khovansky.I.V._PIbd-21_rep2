@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 namespace WindowsFormstroleybus
 {
     public class Bus : Vehicle
@@ -26,6 +27,18 @@ namespace WindowsFormstroleybus
 
 
         }
+        public Bus(string info)
+        {
+            string[] strs = info.Split(';');
+            if (strs.Length == 4)
+            {
+                MaxSpeed = Convert.ToInt32(strs[0]);
+                Weight = Convert.ToInt32(strs[1]);
+                MainColor = Color.FromName(strs[2]);
+                Doors = Convert.ToInt32(strs[3]);
+            }
+        }
+
         public override void MoveTransport(Direction direction)
         {
             float step = MaxSpeed * 100 / Weight;
@@ -64,12 +77,16 @@ namespace WindowsFormstroleybus
         }
         public override void DrawBus(Graphics g)
         {
+
             Pen pen = new Pen(Color.Black);
             Brush brush = new SolidBrush(Color.Black);
             Brush Mainbrush = new SolidBrush(MainColor);
             Brush doorBrush = new SolidBrush(Color.LightGray);
+
             g.FillEllipse(brush, _startPosX + 100, _startPosY + 8, 20, 20);
+
             g.FillEllipse(brush, _startPosX + 100 + DoorX * Doors * 2, _startPosY + 8, 20, 20);
+
 
             g.FillRectangle(Mainbrush, _startPosX + 80, _startPosY - 21, 60 + DoorX * Doors * 2, 35);
 
@@ -80,6 +97,10 @@ namespace WindowsFormstroleybus
             g.FillRectangle(brush, _startPosX + 130 + +DoorX * Doors * 2, _startPosY - 21, 10, 20);
 
 
+        }
+        public override string ToString()
+        {
+            return MaxSpeed + ";" + Weight + ";" + MainColor.Name + ";" + Doors;
         }
 
     }

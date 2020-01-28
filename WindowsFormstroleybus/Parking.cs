@@ -138,6 +138,26 @@ namespace WindowsFormstroleybus
                 g.DrawLine(pen, i * _placeSizeWidth, 0, i * _placeSizeWidth, 450);
             }
         }
+        public T this[int ind]
+        {
+            get
+            {
+                if (_places.ContainsKey(ind))
+                {
+                    return _places[ind];
+                }
+                return null;
+            }
+            set
+            {
+                if (CheckFreePlace(ind))
+                {
+                    _places.Add(ind, value);
+                    _places[ind].SetPosition(5 + ind / 5 * _placeSizeWidth - 60, ind % 5
+                    * _placeSizeHeight + 40, PictureWidth, PictureHeight);
+                }
+            }
+        }
 
     }
 }

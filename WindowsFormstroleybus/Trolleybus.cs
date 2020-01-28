@@ -54,10 +54,30 @@ namespace WindowsFormstroleybus
             DopStupeny = dopStupeny;
             Doors = doors;
             Roga = roga;
-
-
-
         }
+        public Trolleybus(string info) : base(info)
+        {
+            string[] strs = info.Split(';');
+            if (strs.Length == 9)
+            {
+                MaxSpeed = Convert.ToInt32(strs[0]);
+                Weight = Convert.ToInt32(strs[1]);
+                MainColor = Color.FromName(strs[2]);
+                Doors = Convert.ToInt32(strs[3]);
+                DopColor = Color.FromName(strs[4]);
+                Diski = Convert.ToBoolean(strs[5]);
+                Okno = Convert.ToBoolean(strs[6]);
+                DopStupeny = Convert.ToBoolean(strs[7]);
+                Roga = Convert.ToBoolean(strs[8]);
+
+            }
+        }
+        public override string ToString()
+        {
+            return base.ToString() + ";" + DopColor.Name + ";" + Diski + ";" + Okno + ";" +
+           DopStupeny + ";" + Roga;
+        }
+
         public void SetDopColor(Color color)
         {
             DopColor = color;
@@ -65,6 +85,7 @@ namespace WindowsFormstroleybus
         }
         public override void DrawBus(Graphics g)
         {
+            Console.WriteLine(DopColor.Name + Diski + Okno + DopStupeny + Roga);
             Pen pen = new Pen(Color.Black);
             Brush brush = new SolidBrush(DopColor);
             Brush dopBrush = new SolidBrush(DopColor);
@@ -75,7 +96,9 @@ namespace WindowsFormstroleybus
             // и боковые
 
             // теперь отрисуем основной кузов автомобиля
+
             base.DrawBus(g);
+
             // рисуем гоночные полоски
 
             if (Diski)
