@@ -21,11 +21,13 @@
         }
 
         private System.Windows.Forms.PictureBox pictureBoxTrolleybus;
-        private System.Windows.Forms.Button buttonCreate;
+        private System.Windows.Forms.Button CreateBus;
+        private System.Windows.Forms.Button CreateTrolleybus;
         private System.Windows.Forms.Button buttonUp;
-        private System.Windows.Forms.Button buttonRight;
         private System.Windows.Forms.Button buttonLeft;
         private System.Windows.Forms.Button buttonDown;
+        private System.Windows.Forms.Button buttonRight;
+
     }
 }
 
