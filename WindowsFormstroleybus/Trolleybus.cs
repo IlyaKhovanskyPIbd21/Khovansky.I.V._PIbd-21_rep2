@@ -35,9 +35,6 @@ namespace WindowsFormstroleybus
 
         public const int DoorY = 30;
         public const int DoorX = 20;
-        /// <summary>
-        /// Конструктор
-        /// </summary>
         /// <param name="maxSpeed">Максимальная скорость</param>
         /// <param name="weight">Вес автомобиля</param>
         /// <param name="mainColor">Основной цвет кузова</param>
@@ -58,7 +55,7 @@ namespace WindowsFormstroleybus
         public Trolleybus(string info) : base(info)
         {
             string[] strs = info.Split(';');
-            if (strs.Length == 9)
+            if (strs.Length == 8)
             {
                 MaxSpeed = Convert.ToInt32(strs[0]);
                 Weight = Convert.ToInt32(strs[1]);
@@ -66,15 +63,14 @@ namespace WindowsFormstroleybus
                 Doors = Convert.ToInt32(strs[3]);
                 DopColor = Color.FromName(strs[4]);
                 Diski = Convert.ToBoolean(strs[5]);
-                Okno = Convert.ToBoolean(strs[6]);
-                DopStupeny = Convert.ToBoolean(strs[7]);
-                Roga = Convert.ToBoolean(strs[8]);
+                DopStupeny = Convert.ToBoolean(strs[6]);
+                Roga = Convert.ToBoolean(strs[7]);
 
             }
         }
         public override string ToString()
         {
-            return base.ToString() + ";" + DopColor.Name + ";" + Diski + ";" + Okno + ";" +
+            return base.ToString() + ";" + DopColor.Name + ";" + Diski + ";" +
            DopStupeny + ";" + Roga;
         }
 
@@ -85,7 +81,7 @@ namespace WindowsFormstroleybus
         }
         public override void DrawBus(Graphics g)
         {
-            Console.WriteLine(DopColor.Name + Diski + Okno + DopStupeny + Roga);
+
             Pen pen = new Pen(Color.Black);
             Brush brush = new SolidBrush(DopColor);
             Brush dopBrush = new SolidBrush(DopColor);

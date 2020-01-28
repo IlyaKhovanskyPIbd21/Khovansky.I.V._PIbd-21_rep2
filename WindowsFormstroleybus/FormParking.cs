@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -18,9 +19,13 @@ namespace WindowsFormstroleybus
         /// </summary>
         private const int countLevel = 5;
 
+        private Logger logger;
         public FormParking()
         {
             InitializeComponent();
+
+            logger = LogManager.GetCurrentClassLogger();
+
             parking = new MultiLevelParking(countLevel, pictureBoxParking.Width,
            pictureBoxParking.Height);
             //заполнение listBox
@@ -64,15 +69,30 @@ namespace WindowsFormstroleybus
         {
             if (bus != null && listBoxLevels.SelectedIndex > -1)
             {
-                int place = parking[listBoxLevels.SelectedIndex] + bus;
-                if (place > -1)
+                try
                 {
-                    Draw();
+                    int place = parking[listBoxLevels.SelectedIndex] + bus;
+                    logger.Info("Добавлен автомобиль " + bus.ToString() + " на место "
++ place);
+
+                    if (place > -1)
+                    {
+                        Draw();
+                    }
                 }
-                else
+                catch (ParkingOverflowException ex)
                 {
-                    MessageBox.Show("Автобус не удалось поставить");
+                    logger.Warn(ex.Message);
+                    MessageBox.Show(ex.Message, "Переполнение", MessageBoxButtons.OK,
+                   MessageBoxIcon.Error);
                 }
+                catch (Exception ex)
+                {
+                    logger.Warn(ex.Message);
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка",
+                   MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
             }
         }
 
@@ -91,12 +111,12 @@ namespace WindowsFormstroleybus
         {
             if (listBoxLevels.SelectedIndex > -1)
             {
-                if (maskedTextBoxTakeBusORTrolleybus.Text != "")
+                if (maskedTextBoxTakeBusOrTrolleybus.Text != "")
                 {
-                    var bus = parking[listBoxLevels.SelectedIndex] -
-                   Convert.ToInt32(maskedTextBoxTakeBusORTrolleybus.Text);
-                    if (bus != null)
+                    try
                     {
+                        var bus = parking[listBoxLevels.SelectedIndex] -
+                        Convert.ToInt32(maskedTextBoxTakeBusOrTrolleybus.Text);
                         Bitmap bmp = new Bitmap(pictureBoxTakeBus.Width,
                        pictureBoxTakeBus.Height);
                         Graphics gr = Graphics.FromImage(bmp);
@@ -104,14 +124,30 @@ namespace WindowsFormstroleybus
                        pictureBoxTakeBus.Height);
                         bus.DrawBus(gr);
                         pictureBoxTakeBus.Image = bmp;
+
+
+
+                        logger.Info("Изъят автомобиль " + bus.ToString() + " с места "
++ maskedTextBoxTakeBusOrTrolleybus.Text);
+
+                        Draw();
                     }
-                    else
+                    catch (ParkingNotFoundException ex)
                     {
+                        logger.Warn(ex.Message);
+                        MessageBox.Show(ex.Message, "Не найдено", MessageBoxButtons.OK,
+                       MessageBoxIcon.Error);
                         Bitmap bmp = new Bitmap(pictureBoxTakeBus.Width,
                        pictureBoxTakeBus.Height);
                         pictureBoxTakeBus.Image = bmp;
                     }
-                    Draw();
+                    catch (Exception ex)
+                    {
+                        logger.Warn(ex.Message);
+                        MessageBox.Show(ex.Message, "Неизвестная ошибка",
+                       MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
                 }
             }
 
@@ -124,38 +160,52 @@ namespace WindowsFormstroleybus
 
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                if (parking.SaveData(saveFileDialog.FileName))
+                try
                 {
+                    parking.SaveData(saveFileDialog.FileName);
                     MessageBox.Show("Сохранение прошло успешно", "Результат",
-                   MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    logger.Info("Сохранено в файл " + saveFileDialog.FileName);
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Не сохранилось", "Результат",
+                    logger.Warn(ex.Message);
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка при сохранении",
                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-
         }
+
+
 
         private void загрузитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                if (parking.LoadData(openFileDialog.FileName))
+                try
                 {
+                    parking.LoadData(openFileDialog.FileName);
                     MessageBox.Show("Загрузили", "Результат", MessageBoxButtons.OK,
-    MessageBoxIcon.Information);
+                    MessageBoxIcon.Information);
+                    logger.Info("Загружено из файла " + openFileDialog.FileName);
                 }
-                else
+                catch (ParkingOccupiedPlaceException ex)
                 {
-                    MessageBox.Show("Не загрузили", "Результат", MessageBoxButtons.OK,
+                    logger.Warn(ex.Message);
+                    MessageBox.Show(ex.Message, "Занятое место", MessageBoxButtons.OK,
                    MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    logger.Warn(ex.Message);
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка при сохранении",
+                   MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 Draw();
             }
+
 
         }
     }

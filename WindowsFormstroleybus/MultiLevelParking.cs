@@ -39,9 +39,14 @@ namespace WindowsFormstroleybus
             parkingStages = new List<Parking<ITrolleybus>>();
             for (int i = 0; i < countStages; ++i)
             {
+
                 parkingStages.Add(new Parking<ITrolleybus>(countPlaces, pictureWidth,
                pictureHeight));
-                Console.WriteLine(i);
+
+            }
+            foreach (var level in parkingStages)
+            {
+                Console.WriteLine(parkingStages.Count);
             }
         }
         /// <summary>
@@ -140,4 +145,5 @@ namespace WindowsFormstroleybus
             return true;
         }
     }
+
 }

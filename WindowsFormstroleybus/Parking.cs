@@ -62,7 +62,8 @@ namespace WindowsFormstroleybus
         {
             if (p._places.Count == p._maxCount)
             {
-                return -1;
+                throw new ParkingOverflowException();
+
             }
             for (int i = 0; i < p._maxCount; i++)
             {
@@ -93,7 +94,8 @@ namespace WindowsFormstroleybus
                 p._places.Remove(index);
                 return bus;
             }
-            return null;
+            throw new ParkingNotFoundException(index);
+
         }
         /// <summary>
         /// Метод проверки заполнености парковочного места (ячейки массива)
@@ -155,6 +157,11 @@ namespace WindowsFormstroleybus
                     _places.Add(ind, value);
                     _places[ind].SetPosition(5 + ind / 5 * _placeSizeWidth - 60, ind % 5
                     * _placeSizeHeight + 40, PictureWidth, PictureHeight);
+                }
+                else
+                {
+                    throw new ParkingOccupiedPlaceException(ind);
+
                 }
             }
         }

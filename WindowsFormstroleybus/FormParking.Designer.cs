@@ -33,10 +33,10 @@
             this.groupBoxTakeBusOrTrolleybus = new System.Windows.Forms.GroupBox();
             this.pictureBoxTakeBus = new System.Windows.Forms.PictureBox();
             this.TakeBusOrTrolleybus = new System.Windows.Forms.Button();
-            this.maskedTextBoxTakeBusORTrolleybus = new System.Windows.Forms.MaskedTextBox();
+            this.maskedTextBoxTakeBusOrTrolleybus = new System.Windows.Forms.MaskedTextBox();
             this.labelTakeBusOrTrolleybus = new System.Windows.Forms.Label();
             this.listBoxLevels = new System.Windows.Forms.ListBox();
-            this.menuStripSaveOrOpenFile = new System.Windows.Forms.MenuStrip();
+            this.menuStripSaveOrLoadFile = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.загрузитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,7 +45,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxParking)).BeginInit();
             this.groupBoxTakeBusOrTrolleybus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTakeBus)).BeginInit();
-            this.menuStripSaveOrOpenFile.SuspendLayout();
+            this.menuStripSaveOrLoadFile.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBoxParking
@@ -70,7 +70,7 @@
             // 
             this.groupBoxTakeBusOrTrolleybus.Controls.Add(this.pictureBoxTakeBus);
             this.groupBoxTakeBusOrTrolleybus.Controls.Add(this.TakeBusOrTrolleybus);
-            this.groupBoxTakeBusOrTrolleybus.Controls.Add(this.maskedTextBoxTakeBusORTrolleybus);
+            this.groupBoxTakeBusOrTrolleybus.Controls.Add(this.maskedTextBoxTakeBusOrTrolleybus);
             this.groupBoxTakeBusOrTrolleybus.Controls.Add(this.labelTakeBusOrTrolleybus);
             this.groupBoxTakeBusOrTrolleybus.Location = new System.Drawing.Point(1257, 350);
             this.groupBoxTakeBusOrTrolleybus.Name = "groupBoxTakeBusOrTrolleybus";
@@ -96,12 +96,12 @@
             this.TakeBusOrTrolleybus.UseVisualStyleBackColor = true;
             this.TakeBusOrTrolleybus.Click += new System.EventHandler(this.buttonTakeBus_Click);
             // 
-            // maskedTextBoxTakeBusORTrolleybus
+            // maskedTextBoxTakeBusOrTrolleybus
             // 
-            this.maskedTextBoxTakeBusORTrolleybus.Location = new System.Drawing.Point(59, 32);
-            this.maskedTextBoxTakeBusORTrolleybus.Name = "maskedTextBoxTakeBusORTrolleybus";
-            this.maskedTextBoxTakeBusORTrolleybus.Size = new System.Drawing.Size(171, 20);
-            this.maskedTextBoxTakeBusORTrolleybus.TabIndex = 1;
+            this.maskedTextBoxTakeBusOrTrolleybus.Location = new System.Drawing.Point(59, 32);
+            this.maskedTextBoxTakeBusOrTrolleybus.Name = "maskedTextBoxTakeBusOrTrolleybus";
+            this.maskedTextBoxTakeBusOrTrolleybus.Size = new System.Drawing.Size(171, 20);
+            this.maskedTextBoxTakeBusOrTrolleybus.TabIndex = 1;
             // 
             // labelTakeBusOrTrolleybus
             // 
@@ -121,15 +121,15 @@
             this.listBoxLevels.TabIndex = 4;
             this.listBoxLevels.SelectedIndexChanged += new System.EventHandler(this.listBoxLevels_SelectedIndexChanged);
             // 
-            // menuStripSaveOrOpenFile
+            // menuStripSaveOrLoadFile
             // 
-            this.menuStripSaveOrOpenFile.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuStripSaveOrLoadFile.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.файлToolStripMenuItem});
-            this.menuStripSaveOrOpenFile.Location = new System.Drawing.Point(0, 0);
-            this.menuStripSaveOrOpenFile.Name = "menuStripSaveOrOpenFile";
-            this.menuStripSaveOrOpenFile.Size = new System.Drawing.Size(1543, 24);
-            this.menuStripSaveOrOpenFile.TabIndex = 5;
-            this.menuStripSaveOrOpenFile.Text = "menuStripSaveAndOpenFile";
+            this.menuStripSaveOrLoadFile.Location = new System.Drawing.Point(0, 0);
+            this.menuStripSaveOrLoadFile.Name = "menuStripSaveOrLoadFile";
+            this.menuStripSaveOrLoadFile.Size = new System.Drawing.Size(1543, 24);
+            this.menuStripSaveOrLoadFile.TabIndex = 5;
+            this.menuStripSaveOrLoadFile.Text = "menuStrip1";
             // 
             // файлToolStripMenuItem
             // 
@@ -143,14 +143,14 @@
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
             // 
             // загрузитьToolStripMenuItem
             // 
             this.загрузитьToolStripMenuItem.Name = "загрузитьToolStripMenuItem";
-            this.загрузитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.загрузитьToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.загрузитьToolStripMenuItem.Text = "Загрузить";
             this.загрузитьToolStripMenuItem.Click += new System.EventHandler(this.загрузитьToolStripMenuItem_Click);
             // 
@@ -172,16 +172,16 @@
             this.Controls.Add(this.groupBoxTakeBusOrTrolleybus);
             this.Controls.Add(this.buttonCreateTrolleybus);
             this.Controls.Add(this.pictureBoxParking);
-            this.Controls.Add(this.menuStripSaveOrOpenFile);
-            this.MainMenuStrip = this.menuStripSaveOrOpenFile;
+            this.Controls.Add(this.menuStripSaveOrLoadFile);
+            this.MainMenuStrip = this.menuStripSaveOrLoadFile;
             this.Name = "FormParking";
             this.Text = "FormParking";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxParking)).EndInit();
             this.groupBoxTakeBusOrTrolleybus.ResumeLayout(false);
             this.groupBoxTakeBusOrTrolleybus.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTakeBus)).EndInit();
-            this.menuStripSaveOrOpenFile.ResumeLayout(false);
-            this.menuStripSaveOrOpenFile.PerformLayout();
+            this.menuStripSaveOrLoadFile.ResumeLayout(false);
+            this.menuStripSaveOrLoadFile.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -194,10 +194,10 @@
         private System.Windows.Forms.GroupBox groupBoxTakeBusOrTrolleybus;
         private System.Windows.Forms.PictureBox pictureBoxTakeBus;
         private System.Windows.Forms.Button TakeBusOrTrolleybus;
-        private System.Windows.Forms.MaskedTextBox maskedTextBoxTakeBusORTrolleybus;
+        private System.Windows.Forms.MaskedTextBox maskedTextBoxTakeBusOrTrolleybus;
         private System.Windows.Forms.Label labelTakeBusOrTrolleybus;
         private System.Windows.Forms.ListBox listBoxLevels;
-        private System.Windows.Forms.MenuStrip menuStripSaveOrOpenFile;
+        private System.Windows.Forms.MenuStrip menuStripSaveOrLoadFile;
         private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem загрузитьToolStripMenuItem;

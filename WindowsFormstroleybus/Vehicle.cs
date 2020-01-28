@@ -3,6 +3,7 @@ namespace WindowsFormstroleybus
 {
     public abstract class Vehicle : ITrolleybus
     {
+
         /// <summary>
         /// Левая координата отрисовки автомобиля
         /// </summary>
